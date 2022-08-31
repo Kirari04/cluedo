@@ -1,0 +1,24 @@
+package ch.bbw.cluedo.model;
+
+public class Room {
+    private String name;
+
+    public Room(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+}
