@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CLuedo | Game</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body class="container">
+  <header class="section">
+    <nav th:insert="Navigation"></nav>
+  </header>
+  <main class="section">
+    <h1 class="title">Cluedo Liste</h1>
+    <h2 class="subtitle">Personen</h2>
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+      <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="person : ${persons}">
+        <td th:text="${person.getName()}"></td>
+      </tr>
+      </tbody>
+    </table>
+    <h2 class="subtitle">Weapons</h2>
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+      <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="weapon : ${weapons}">
+        <td th:text="${weapon.getName()}"></td>
+      </tr>
+      </tbody>
+    </table>
+    <h2 class="subtitle">Rooms</h2>
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+      <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="room : ${rooms}">
+        <td th:text="${room.getName()}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>
