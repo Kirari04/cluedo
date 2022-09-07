@@ -27,4 +27,10 @@ public class ViewController {
         model.addAttribute("rooms", service.getRooms());
         return "CluedoListView";
     }
+
+    @PostMapping("/cluedo/list/reset")
+    public String resetListView(){
+        service.reset();
+        return "redirect:/cluedo/list";
+    }
 }

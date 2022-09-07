@@ -11,20 +11,41 @@
   </header>
   <main class="section">
     <h1 class="title">Cluedo Liste</h1>
-    <h2 class="subtitle">Personen</h2>
+    <h2 class="subtitle">Reset Models</h2>
+    <form action="/cluedo/list/reset" method="post">
+      <button class="button is-danger" type="submit">Reset Data</button>
+      <p class="help is-danger">All current data will be removed!</p>
+    </form>
+    <h2 class="subtitle">Persons</h2>
     <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
       <thead>
       <tr>
+        <th>Avatar</th>
         <th>Name</th>
+        <th>Age</th>
+        <th>Weight</th>
+        <th>Sex</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="person : ${persons}">
+        <td>
+          <img  th:src="@{'data:image/png;base64,'+${person.getImage()}}" />
+        </td>
         <td th:text="${person.getName()}"></td>
+        <td>
+          <span th:text="${person.getAge()}"></span>
+          <span th:if="${person.getAge()}>1">Years</span>
+          <span th:if="${person.getAge()}==1">Year</span>
+        </td>
+        <td>
+          <span th:text="${person.getWeight()}"></span> kg
+        </td>
+        <td th:text="${person.getSex()}"></td>
       </tr>
       </tbody>
     </table>
-    <h2 class="subtitle">Weapons</h2>
+    <h2 class="subtitle">Cause of death</h2>
     <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
       <thead>
       <tr>
@@ -33,11 +54,14 @@
       </thead>
       <tbody>
       <tr th:each="weapon : ${weapons}">
-        <td th:text="${weapon.getName()}"></td>
+        <td>
+          <span>Eaten by </span>
+          <span th:text="${weapon.getName()}"></span>
+        </td>
       </tr>
       </tbody>
     </table>
-    <h2 class="subtitle">Rooms</h2>
+    <h2 class="subtitle">Location</h2>
     <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
       <thead>
       <tr>
