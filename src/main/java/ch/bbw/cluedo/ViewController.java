@@ -1,6 +1,7 @@
 package ch.bbw.cluedo;
 
 import ch.bbw.cluedo.model.DataService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,10 +9,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ViewController {
-    private final DataService service = new DataService();
+    @Autowired
+    private final DataService service;
+
+    public ViewController(DataService service) {
+        this.service = service;
+    }
 
     @GetMapping("/cluedo")
-    public String showView(){
+    public String showView(Model model){
+        if(service.getCrime() == null){
+            GameLogic.setupNewGame(service, new Crime());
+        }
+        model.addAttribute("actor", service.getPersons().get(service.getCrime().getActor()));
         return "CluedoView";
     }
 

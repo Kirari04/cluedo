@@ -1,10 +1,16 @@
 package ch.bbw.cluedo.model;
 
+import ch.bbw.cluedo.Crime;
+import ch.bbw.cluedo.GameLogic;
 import com.github.javafaker.Dog;
 import com.github.javafaker.Faker;
 import com.talanlabs.avatargenerator.Avatar;
 import com.talanlabs.avatargenerator.eightbit.EightBitAvatar;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -17,12 +23,31 @@ import java.util.Base64;
 import java.util.Objects;
 import java.util.Random;
 
-@Service
+@Component
+@Scope(value="session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DataService {
     private ArrayList<Person> persons = new ArrayList<Person>();
     private ArrayList<Weapon> weapons = new ArrayList<Weapon>();
     private ArrayList<Room> rooms = new ArrayList<Room>();
     private ArrayList<String> history;
+    private Crime crime;
+    private GameLogic gameLogic;
+
+    public Crime getCrime() {
+        return crime;
+    }
+
+    public void setCrime(Crime crime) {
+        this.crime = crime;
+    }
+
+    public GameLogic getGameLogic() {
+        return gameLogic;
+    }
+
+    public void setGameLogic(GameLogic gameLogic) {
+        this.gameLogic = gameLogic;
+    }
 
     public DataService() {
         this.init();
@@ -32,6 +57,10 @@ public class DataService {
         this.persons = new ArrayList<Person>();
         this.weapons = new ArrayList<Weapon>();
         this.rooms = new ArrayList<Room>();
+
+        this.crime = new Crime();
+        this.gameLogic = new GameLogic();
+        this.gameLogic.setupNewGame(this, this.crime);
 
         this.init();
     }
